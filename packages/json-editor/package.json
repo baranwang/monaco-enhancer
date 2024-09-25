@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/baranwang/monaco-enhancer",
-    "directory": "packages/json"
+    "directory": "packages/json-editor"
   },
   "scripts": {
     "dev": "rslib build -w",
