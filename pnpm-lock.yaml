@@ -14,12 +14,12 @@ importers:
 
   examples/@monaco-editor__react:
     dependencies:
+      '@monaco-editor-enhancer/json-editor':
+        specifier: workspace:^
+        version: link:../../packages/json
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.52.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      monaco-json-enhancer:
-        specifier: workspace:^
-        version: link:../../packages/monaco-json-enhancer
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -48,9 +48,9 @@ importers:
 
   examples/react-monaco-editor:
     dependencies:
-      monaco-json-enhancer:
+      '@monaco-editor-enhancer/json-editor':
         specifier: workspace:^
-        version: link:../../packages/monaco-json-enhancer
+        version: link:../../packages/json
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -80,7 +80,7 @@ importers:
         specifier: ^5.5.2
         version: 5.6.2
 
-  packages/monaco-json-enhancer:
+  packages/json:
     dependencies:
       zod-to-json-schema:
         specifier: ^3.23.3

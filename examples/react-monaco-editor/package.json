@@ -10,7 +10,7 @@
     "preview": "rsbuild preview"
   },
   "dependencies": {
-    "monaco-json-enhancer": "workspace:^",
+    "@monaco-editor-enhancer/json-editor": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-monaco-editor": "^0.56.1"

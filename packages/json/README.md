@@ -1,4 +1,4 @@
-# monaco-json-enhancer
+# @monaco-editor-enhancer/json-editor
 
 Enhance your Monaco Editor with advanced JSON schema support, including Zod schema integration.
 
@@ -13,10 +13,10 @@ Enhance your Monaco Editor with advanced JSON schema support, including Zod sche
 ## Installation
 
 ```bash
-npm add monaco-json-enhancer
-pnpm add monaco-json-enhancer
-yarn add monaco-json-enhancer
-bun add monaco-json-enhancer
+npm add @monaco-editor-enhancer/json-editor
+pnpm add @monaco-editor-enhancer/json-editor
+yarn add @monaco-editor-enhancer/json-editor
+bun add @monaco-editor-enhancer/json-editor
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ bun add monaco-json-enhancer
 
 ```tsx
 import { Editor, type EditorProps } from '@monaco-editor/react';
-import { withMonacoJsonEditor } from 'monaco-json-enhancer';
+import { withMonacoJsonEditor } from '@monaco-editor-enhancer/json-editor';
 import { z } from 'zod';
 
 const JsonEditor = withMonacoJsonEditor<EditorProps>((setInterface, props) => (
