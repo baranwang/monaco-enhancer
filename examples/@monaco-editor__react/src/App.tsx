@@ -1,16 +1,18 @@
+import { withJsonEditor, withMonacoJsonEditor } from '@monaco-editor-enhancer/json-editor';
 import { Editor, type EditorProps } from '@monaco-editor/react';
-import { withMonacoJsonEditor } from 'monaco-json-enhancer';
 import { z } from 'zod';
 
-const JsonEditor = withMonacoJsonEditor<EditorProps>((setInterface, props) => (
-  <Editor
-    {...props}
-    onMount={(editor, monaco) => {
-      setInterface(monaco, editor.getModel());
-      props.onMount?.(editor, monaco);
-    }}
-  />
-));
+// const JsonEditor = withMonacoJsonEditor<EditorProps>((setInterface, props) => (
+//   <Editor
+//     {...props}
+//     onMount={(editor, monaco) => {
+//       setInterface(monaco, editor.getModel());
+//       props.onMount?.(editor, monaco);
+//     }}
+//   />
+// ));
+
+const JsonEditor = withJsonEditor(Editor, 'onMount');
 
 const App = () => {
   const schema = z.object({

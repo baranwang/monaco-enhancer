@@ -13,6 +13,7 @@ Enhance your Monaco Editor with advanced JSON schema support, including Zod sche
 - Integration with Zod schemas
 - Custom JSON schema support
 - Flexible schema validation options
+- Easy-to-use Higher-Order Components (HOCs) for quick integration
 
 ## Installation
 
@@ -25,18 +26,37 @@ bun add @monaco-editor-enhancer/json-editor
 
 ## Usage
 
-### Basic Usage
+### Basic Usage with `withJsonEditor`
+
+```tsx
+import { Editor } from '@monaco-editor/react';
+import { withJsonEditor } from '@monaco-editor-enhancer/json-editor';
+import { z } from 'zod';
+
+const JsonEditor = withJsonEditor(Editor, 'onMount');
+
+const schema = z.object({
+  name: z.string(),
+  age: z.number(),
+});
+
+const App = () => {
+  return <JsonEditor height={320} schemaUri='zod://user' schemaContent={schema} />;
+};
+```
+
+### Advanced Usage with `withMonacoJsonEditor`
 
 ```tsx
 import { Editor, type EditorProps } from '@monaco-editor/react';
 import { withMonacoJsonEditor } from '@monaco-editor-enhancer/json-editor';
 import { z } from 'zod';
 
-const JsonEditor = withMonacoJsonEditor<EditorProps>((setInterface, props) => (
+const JsonEditor = withMonacoJsonEditor<EditorProps>((initEditor, props) => (
   <Editor
     {...props}
     onMount={(editor, monaco) => {
-      setInterface(monaco, editor.getModel());
+      initEditor(monaco, editor.getModel());
       props.onMount?.(editor, monaco);
     }}
   />
@@ -48,13 +68,18 @@ const schema = z.object({
 });
 
 const App = () => {
-  return <JsonEditor height={320} schemaUri='zod://myschema' schemaContent={schema} />;
+  return <JsonEditor height={320} schemaUri='zod://user' schemaContent={schema} />;
 };
 ```
 
 ### API
 
-The `withMonacoJsonEditor` HOC accepts a component factory function and returns a new component with enhanced JSON editing capabilities. The resulting component accepts the following props:
+The library provides two main HOCs:
+
+1. `withJsonEditor`: A simplified HOC for quick integration.
+2. `withMonacoJsonEditor`: A more flexible HOC for advanced use cases.
+
+Both HOCs create components that accept the following props:
 
 - `schemaUri`: A string specifying the type and location of the schema. Can be one of:
   - `http://` or `https://`: For remote JSON schemas

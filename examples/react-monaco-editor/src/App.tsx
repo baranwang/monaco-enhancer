@@ -1,4 +1,4 @@
-import { withMonacoJsonEditor } from 'monaco-json-enhancer';
+import { withMonacoJsonEditor } from '@monaco-editor-enhancer/json-editor';
 import MonacoEditor, { type MonacoEditorProps } from 'react-monaco-editor';
 
 const JsonEditor = withMonacoJsonEditor<MonacoEditorProps>((setInterface, props) => (
