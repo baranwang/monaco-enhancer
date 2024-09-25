@@ -1,5 +1,9 @@
 # @monaco-editor-enhancer/json-editor
 
+[![NPM Version](https://img.shields.io/npm/v/@monaco-editor-enhancer/json-editor)](https://npmjs.com/package/@monaco-editor-enhancer/json-editor)
+[![NPM Downloads](https://img.shields.io/npm/dm/@monaco-editor-enhancer/json-editor)](https://npmcharts.com/compare/@monaco-editor-enhancer/json-editor?minimal=true)
+![NPM License](https://img.shields.io/npm/l/@monaco-editor-enhancer/json-editor)
+
 Enhance your Monaco Editor with advanced JSON schema support, including Zod schema integration.
 
 ## Features
