@@ -1,10 +1,15 @@
 {
   "name": "monaco-json-enhancer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Enhance your Monaco Editor with advanced JSON schema support, including Zod schema integration.",
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
   "module": "dist/esm/index.mjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baranwang/monaco-enhancer",
+    "directory": "packages/monaco-json-enhancer"
+  },
   "scripts": {
     "dev": "rslib build -w",
     "build": "rslib build"
