@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["DOM", "ESNext"]
+  },
+  "include": ["src/**/*"]
+}
