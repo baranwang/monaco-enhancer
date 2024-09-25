@@ -1,5 +1,11 @@
 # @monaco-editor-enhancer/json-editor
 
+## 1.1.2
+
+### Patch Changes
+
+- 049f27f: Optimize internal logic of `withMonacoJsonEditor` to reduce unnecessary re-renders
+
 ## 1.1.0
 
 ### Minor Changes
