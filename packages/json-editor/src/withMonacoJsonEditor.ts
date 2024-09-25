@@ -1,19 +1,22 @@
 import type { editor } from 'monaco-editor';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import type { EditorInitializerFunc, JsonEditorComponentFactory, JsonEditorProps, Monaco } from './types';
 
 export function withMonacoJsonEditor<T>(func: JsonEditorComponentFactory<T>) {
-  return (props: JsonEditorProps<T>) => {
-    const {
-      schemaUri,
-      schemaValidation = 'ignore',
-      tabSize,
-      ...editorProps
-    } = props;
+  return ({
+    schemaUri,
+    schemaValidation = 'ignore',
+    // @ts-expect-error
+    schemaContent,
+    // @ts-expect-error
+    schemaRequestService,
+    tabSize,
+    ...editorProps
+  }: JsonEditorProps<T>) => {
     const [monaco, setMonaco] = useState<Monaco | null>(null);
     const [model, setModel] = useState<editor.ITextModel | null>(null);
-    const [schema, setSchema] = useState<any>('schemaContent' in props ? props.schemaContent : null);
+    const [schema, setSchema] = useState<any>(schemaContent);
 
     const initializeEditor = useCallback<EditorInitializerFunc>((monacoInterface, editorModel) => {
       setMonaco(monacoInterface);
@@ -22,14 +25,15 @@ export function withMonacoJsonEditor<T>(func: JsonEditorComponentFactory<T>) {
 
     useEffect(() => {
       if (!schemaUri) {
+        setSchema(null);
         return;
       }
 
       const loadSchema = async () => {
         if (schemaUri.startsWith('http://') || schemaUri.startsWith('https://')) {
           try {
-            if ('schemaRequestService' in props && props.schemaRequestService) {
-              const jsonSchema = props.schemaRequestService(schemaUri);
+            if (schemaRequestService) {
+              const jsonSchema = await schemaRequestService(schemaUri);
               setSchema(jsonSchema);
             } else {
               const response = await fetch(schemaUri);
@@ -38,16 +42,19 @@ export function withMonacoJsonEditor<T>(func: JsonEditorComponentFactory<T>) {
             }
           } catch (error) {
             console.error('[monaco-json-enhancer] Error loading JSON schema:', error);
+            setSchema(null);
           }
-        } else if (schemaUri.startsWith('zod://') && 'schemaContent' in props) {
-          setSchema(zodToJsonSchema(props.schemaContent));
-        } else if (schemaUri.startsWith('json-schema://') && 'schemaContent' in props) {
-          setSchema(props.schemaContent);
+        } else if (schemaUri.startsWith('zod://') && schemaContent) {
+          setSchema(zodToJsonSchema(schemaContent));
+        } else if (schemaUri.startsWith('json-schema://') && schemaContent) {
+          setSchema(schemaContent);
+        } else {
+          setSchema(null);
         }
       };
 
       loadSchema();
-    }, [schemaUri, props]);
+    }, [schemaUri, schemaContent, schemaRequestService]);
 
     useEffect(() => {
       model?.updateOptions({ tabSize });
@@ -89,4 +96,3 @@ export function withMonacoJsonEditor<T>(func: JsonEditorComponentFactory<T>) {
     return func(initializeEditor, editorProps as T);
   };
 }
-
